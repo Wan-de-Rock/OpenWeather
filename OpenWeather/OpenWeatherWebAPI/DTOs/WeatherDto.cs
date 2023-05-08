@@ -25,7 +25,7 @@ public readonly struct Weather
     [JsonConstructor]
     public Weather(double temperature, int humidity, double windSpeed, int cloudiness, string description, CityData city)
     {
-        Temperature = ConvertKelvinToCelsius(temperature);
+        Temperature = temperature;
         Humidity = humidity;
         WindSpeed = windSpeed;
         Cloudiness = cloudiness;

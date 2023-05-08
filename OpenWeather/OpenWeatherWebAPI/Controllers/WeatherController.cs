@@ -9,12 +9,12 @@ namespace OpenWeatherWebAPI.Controllers
     [ApiController]
     public class WeatherController : ControllerBase
     {
-        [HttpGet("{country}/{city}")]
-        public ActionResult<Weather> GetCityWeather(string city, string country)
+        [HttpGet("{city}/{country}")]
+        public async Task<ActionResult<Weather>> GetCityWeather(string city, string country)
         {
             Weather weather = new();
 
-            try { weather = WeatherDataProvider.GetCityWeather(city, country); }
+            try { weather = await WeatherDataProvider.GetCityWeather(city, country); }
             catch (ArgumentNullException argNullEx) { return BadRequest(argNullEx.Message); }
             catch (NotFoundException notFoundEx) { return NotFound(notFoundEx.Message); }
             catch (HttpRequestException httpEx) { 

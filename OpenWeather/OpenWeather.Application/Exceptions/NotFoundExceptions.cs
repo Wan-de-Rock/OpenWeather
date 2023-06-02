@@ -1,4 +1,4 @@
-﻿namespace OpenWeatherWebAPI.Exceptions
+﻿namespace OpenWeather.Application.Exceptions
 {
     public class NotFoundException : Exception
     {

@@ -1,28 +1,38 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OpenWeatherWebAPI.DTOs;
-using OpenWeatherWebAPI.Exceptions;
-using OpenWeatherWebAPI.Services;
+using OpenWeather.Application.Exceptions;
+using OpenWeather.Domain.Entities;
+using OpenWeather.Domain.Interfaces;
 
-namespace OpenWeatherWebAPI.Controllers
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+
+namespace OpenWeather.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class WeatherController : ControllerBase
     {
-        [HttpGet("{city}/{country}")]
-        public async Task<ActionResult<Weather>> GetCityWeather(string city, string country)
-        {
-            Weather weather = null!;
+        private readonly IWeatherDataProvider _weatherDataProvider;
 
-            try { weather = await WeatherDataProvider.GetCityWeather(city, country); }
+        public WeatherController(IWeatherDataProvider weatherDataProvider)
+        {
+            _weatherDataProvider = weatherDataProvider;
+        }
+
+        [HttpGet(Name = "GetWeather")]
+        public async Task<ActionResult<Weather>> Get(string city, string country)
+        {
+            Weather weather;
+
+            try { weather = await _weatherDataProvider.GetCityWeather(city, country); }
             catch (ArgumentNullException argNullEx) { return BadRequest(argNullEx.Message); }
             catch (NotFoundException notFoundEx) { return NotFound(notFoundEx.Message); }
-            catch (HttpRequestException httpEx) { 
+            catch (HttpRequestException httpEx)
+            {
                 var objectResult = new ObjectResult(httpEx.StatusCode);
                 //objectResult.Value = weather;
                 return objectResult;
             }
-            catch (Exception) { return StatusCode(500); }
+            catch { return StatusCode(500); }
 
             return Ok(weather);
         }

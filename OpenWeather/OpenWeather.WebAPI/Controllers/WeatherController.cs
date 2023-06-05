@@ -3,8 +3,6 @@ using OpenWeather.Application.Exceptions;
 using OpenWeather.Domain.Entities;
 using OpenWeather.Domain.Interfaces;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace OpenWeather.WebAPI.Controllers
 {
     [Route("api/[controller]")]
@@ -25,6 +23,7 @@ namespace OpenWeather.WebAPI.Controllers
 
             try { weather = await _weatherDataProvider.GetCityWeather(city, country); }
             catch (ArgumentNullException argNullEx) { return BadRequest(argNullEx.Message); }
+            catch (ArgumentOutOfRangeException argOutEx) { return BadRequest(argOutEx.Message); }
             catch (NotFoundException notFoundEx) { return NotFound(notFoundEx.Message); }
             catch (HttpRequestException httpEx)
             {

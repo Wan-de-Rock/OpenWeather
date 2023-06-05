@@ -8,6 +8,12 @@ using System.Text.Json.Nodes;
 
 public class WeatherDataProvider : IWeatherDataProvider
 {
+    private const int MAXIMUM_LATITUDE_VALUE = 90;
+    private const int MINIMUM_LATITUDE_VALUE = -90;
+
+    private const int MAXIMUM_LONGITUDE_VALUE = 180;
+    private const int MINIMUM_LONGITUDE_VALUE = -180;
+
     private const string OPENWEATHER_API_DATA_PATH = "data/2.5/weather";
     private const string OPENWEATHER_API_DATA_QUERY = "lat={0}&lon={1}&appid=" + ApplicationOptions.OPENWEATHER_API_KEY + "&units=metric";
 
@@ -35,6 +41,12 @@ public class WeatherDataProvider : IWeatherDataProvider
     
     public async Task<Weather> GetCityWeather(double latitude, double longitude)
     {
+        if (latitude > MAXIMUM_LATITUDE_VALUE || latitude < MINIMUM_LATITUDE_VALUE)
+            throw new ArgumentOutOfRangeException("Incorrect latitude data");
+
+        if (longitude > MAXIMUM_LONGITUDE_VALUE || longitude < MINIMUM_LONGITUDE_VALUE)
+            throw new ArgumentOutOfRangeException("Incorrect longitude data");
+
         _uriBuilder.Query = string.Format(OPENWEATHER_API_DATA_QUERY, latitude, longitude);
 
         var response = await _httpClient.GetAsync(_uriBuilder.Uri.ToString());

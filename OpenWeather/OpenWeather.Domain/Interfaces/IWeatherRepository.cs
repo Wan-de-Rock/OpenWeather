@@ -2,7 +2,7 @@
 
 namespace OpenWeather.Domain.Interfaces
 {
-    public interface IWeatherDataProvider
+    public interface IWeatherRepository
     {
         public Task<Weather> GetCityWeather(string city, string country);
         public Task<Weather> GetCityWeather(double latitude, double longitude);

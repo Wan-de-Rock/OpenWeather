@@ -1,4 +1,4 @@
-﻿namespace OpenWeather.Application.DataProviders;
+﻿namespace OpenWeather.Application.Repositories;
 
 using OpenWeather.Application.DTOs;
 using OpenWeather.Domain.Entities;
@@ -6,7 +6,7 @@ using OpenWeather.Domain.Interfaces;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 
-public class WeatherDataProvider : IWeatherDataProvider
+public class WeatherRepository : IWeatherRepository
 {
     private const int MAXIMUM_LATITUDE_VALUE = 90;
     private const int MINIMUM_LATITUDE_VALUE = -90;
@@ -19,22 +19,19 @@ public class WeatherDataProvider : IWeatherDataProvider
 
     private readonly HttpClient _httpClient;
     private readonly UriBuilder _uriBuilder;
-    private readonly IGeocodingDataProvider _geocodingDataProvider;
+    private readonly IGeocodingRepository _geocodingRepository;
 
-    public WeatherDataProvider(HttpClient httpClient, IGeocodingDataProvider geocodingDataProvider)
+    public WeatherRepository(HttpClient httpClient, IGeocodingRepository geocodingRepository)
     {
         _httpClient = httpClient;
         _uriBuilder = new(ApplicationOptions.OPENWEATHER_API_URL);
         _uriBuilder.Path = OPENWEATHER_API_DATA_PATH;
-        _geocodingDataProvider = geocodingDataProvider;
+        _geocodingRepository = geocodingRepository;
     }
 
     public async Task<Weather> GetCityWeather(string city, string country)
     {
-        if (string.IsNullOrEmpty(city) || string.IsNullOrEmpty(country))
-            throw new ArgumentNullException("Missing city or country name");
-
-        var cityData = await _geocodingDataProvider.GetCityData(city, country);
+        var cityData = await _geocodingRepository.GetCityData(city, country);
 
         return await GetCityWeather(cityData.Latitude, cityData.Longitude);
     }
@@ -42,10 +39,10 @@ public class WeatherDataProvider : IWeatherDataProvider
     public async Task<Weather> GetCityWeather(double latitude, double longitude)
     {
         if (latitude > MAXIMUM_LATITUDE_VALUE || latitude < MINIMUM_LATITUDE_VALUE)
-            throw new ArgumentOutOfRangeException("Incorrect latitude data");
+            throw new ArgumentOutOfRangeException("Incorrect latitude value");
 
         if (longitude > MAXIMUM_LONGITUDE_VALUE || longitude < MINIMUM_LONGITUDE_VALUE)
-            throw new ArgumentOutOfRangeException("Incorrect longitude data");
+            throw new ArgumentOutOfRangeException("Incorrect longitude value");
 
         _uriBuilder.Query = string.Format(OPENWEATHER_API_DATA_QUERY, latitude, longitude);
 

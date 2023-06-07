@@ -1,4 +1,4 @@
-﻿namespace OpenWeather.Application.DataProviders;
+﻿namespace OpenWeather.Application.Repositories;
 
 using System.Globalization;
 using System.Text.Json.Nodes;
@@ -9,7 +9,7 @@ using OpenWeather.Application.Exceptions;
 using System;
 using OpenWeather.Application.DTOs;
 
-public class GeocodingDataProvider : IGeocodingDataProvider
+public class GeocodingRepository : IGeocodingRepository
 {
     private const string OPENWEATHER_API_GEOCODING_PATH = "geo/1.0/direct";
     private const string OPENWEATHER_API_GEOCODING_QUERY = "q={0},{1}&appid=" + ApplicationOptions.OPENWEATHER_API_KEY;
@@ -19,7 +19,7 @@ public class GeocodingDataProvider : IGeocodingDataProvider
 
     private readonly static Dictionary<string, RegionInfo> Countries = SetCountries();
 
-    public GeocodingDataProvider(HttpClient httpClient)
+    public GeocodingRepository(HttpClient httpClient)
     {
         _httpClient = httpClient;
         _uriBuilder = new(ApplicationOptions.OPENWEATHER_API_URL);

@@ -9,7 +9,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddOpenWeather();
+builder.Services.AddOpenWeatherDependencies();
 
 var app = builder.Build();
 

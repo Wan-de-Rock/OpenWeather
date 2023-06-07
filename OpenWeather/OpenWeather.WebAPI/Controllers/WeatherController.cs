@@ -9,9 +9,9 @@ namespace OpenWeather.WebAPI.Controllers
     [ApiController]
     public class WeatherController : ControllerBase
     {
-        private readonly IWeatherDataProvider _weatherDataProvider;
+        private readonly IWeatherRepository _weatherDataProvider;
 
-        public WeatherController(IWeatherDataProvider weatherDataProvider)
+        public WeatherController(IWeatherRepository weatherDataProvider)
         {
             _weatherDataProvider = weatherDataProvider;
         }

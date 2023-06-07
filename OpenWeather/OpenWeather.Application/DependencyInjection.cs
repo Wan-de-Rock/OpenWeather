@@ -2,16 +2,16 @@
 
 using OpenWeather.Domain.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
-using OpenWeather.Application.DataProviders;
+using OpenWeather.Application.Repositories;
 
 public static class DependencyInjection
 {
-    public static void AddOpenWeather(this IServiceCollection services)
+    public static void AddOpenWeatherDependencies(this IServiceCollection services)
     {
-        services.AddTransient<IWeatherDataProvider, WeatherDataProvider>();
-        services.AddHttpClient<IWeatherDataProvider, WeatherDataProvider>();
+        services.AddTransient<IWeatherRepository, WeatherRepository>();
+        services.AddHttpClient<IWeatherRepository, WeatherRepository>();
 
-        services.AddTransient<IGeocodingDataProvider, GeocodingDataProvider>();
-        services.AddHttpClient<IGeocodingDataProvider, GeocodingDataProvider>();
+        services.AddTransient<IGeocodingRepository, GeocodingRepository>();
+        services.AddHttpClient<IGeocodingRepository, GeocodingRepository>();
     }
 }

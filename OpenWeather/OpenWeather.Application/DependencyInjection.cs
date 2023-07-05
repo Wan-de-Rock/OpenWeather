@@ -1,8 +1,8 @@
 ﻿namespace OpenWeather.Application;
 
 using OpenWeather.Domain.Interfaces;
-using Microsoft.Extensions.DependencyInjection;
 using OpenWeather.Application.Repositories;
+using Microsoft.Extensions.DependencyInjection;
 
 public static class DependencyInjection
 {

@@ -19,7 +19,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenWeather.Domain", "OpenW
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenWeather.WebAPI", "OpenWeather.WebAPI\OpenWeather.WebAPI.csproj", "{C7B3EE70-1606-4E15-9D59-40B8DC28DD32}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenWeather.Tests", "OpenWeather.Tests\OpenWeather.Tests.csproj", "{0370F721-9D97-4D5B-AE39-0D4D30D48DAF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenWeather.Tests", "OpenWeather.Tests\OpenWeather.Tests.csproj", "{0370F721-9D97-4D5B-AE39-0D4D30D48DAF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenWeather.CmdUI", "OpenWeather.CmdUI\OpenWeather.CmdUI.csproj", "{2025CFCE-BB2F-42BD-B47B-5078BD494018}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E937A02A-3119-4F70-A957-358760933BA3} = {E937A02A-3119-4F70-A957-358760933BA3}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +48,10 @@ Global
 		{0370F721-9D97-4D5B-AE39-0D4D30D48DAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0370F721-9D97-4D5B-AE39-0D4D30D48DAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0370F721-9D97-4D5B-AE39-0D4D30D48DAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2025CFCE-BB2F-42BD-B47B-5078BD494018}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2025CFCE-BB2F-42BD-B47B-5078BD494018}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2025CFCE-BB2F-42BD-B47B-5078BD494018}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2025CFCE-BB2F-42BD-B47B-5078BD494018}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +64,7 @@ Global
 		{A3BDB4DF-D08B-4FEA-B865-E05C9CC5C189} = {A8C3028F-7CD7-401E-8889-F256AFF1A3E4}
 		{C7B3EE70-1606-4E15-9D59-40B8DC28DD32} = {0C81B281-1BA8-4514-81AB-5373EB95FE4F}
 		{0370F721-9D97-4D5B-AE39-0D4D30D48DAF} = {98DF002F-E42B-41AC-AE02-FA51D3503F2C}
+		{2025CFCE-BB2F-42BD-B47B-5078BD494018} = {CD468488-2B32-493E-943B-CC8226080842}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3C133E8B-69CE-4E0F-919A-0BC077F58026}

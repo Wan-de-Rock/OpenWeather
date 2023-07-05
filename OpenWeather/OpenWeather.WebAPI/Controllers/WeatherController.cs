@@ -2,6 +2,7 @@
 using OpenWeather.Application.Exceptions;
 using OpenWeather.Domain.Entities;
 using OpenWeather.Domain.Interfaces;
+using static System.Net.WebRequestMethods;
 
 namespace OpenWeather.WebAPI.Controllers
 {
@@ -9,29 +10,35 @@ namespace OpenWeather.WebAPI.Controllers
     [ApiController]
     public class WeatherController : ControllerBase
     {
-        private readonly IWeatherRepository _weatherDataProvider;
+        private readonly IWeatherRepository _weatherRepository;
 
-        public WeatherController(IWeatherRepository weatherDataProvider)
+        public WeatherController(IWeatherRepository weatherRepository)
         {
-            _weatherDataProvider = weatherDataProvider;
+            _weatherRepository = weatherRepository;
         }
 
-        [HttpGet(Name = "GetWeather")]
-        public async Task<ActionResult<Weather>> Get(string city, string country)
+        [HttpGet]
+        public async Task<ActionResult<Weather>> GetWeather(string city, string country)
         {
-            Weather weather;
+            Weather weather = new();
+            ObjectResult objectResult = new(weather);
+            objectResult.ContentTypes.Clear();
+            objectResult.ContentTypes.Add("application/json");
 
-            try { weather = await _weatherDataProvider.GetCityWeather(city, country); }
+            try { weather = await _weatherRepository.GetCityWeather(city, country); }
             catch (ArgumentNullException argNullEx) { return BadRequest(argNullEx.Message); }
             catch (ArgumentOutOfRangeException argOutEx) { return BadRequest(argOutEx.Message); }
             catch (NotFoundException notFoundEx) { return NotFound(notFoundEx.Message); }
             catch (HttpRequestException httpEx)
             {
-                var objectResult = new ObjectResult(httpEx.StatusCode);
-                //objectResult.Value = weather;
+                objectResult.StatusCode = (int)httpEx.StatusCode;
                 return objectResult;
             }
-            catch { return StatusCode(500); }
+            catch 
+            {
+                objectResult.StatusCode = 500;
+                return objectResult;
+            }
 
             return Ok(weather);
         }

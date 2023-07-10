@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Moq;
-using OpenWeather.Application.Repositories;
-using OpenWeather.Domain.Entities;
 using OpenWeather.Domain.Interfaces;
 using OpenWeather.WebAPI.Controllers;
 

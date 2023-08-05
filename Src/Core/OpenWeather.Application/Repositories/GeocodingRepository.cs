@@ -22,14 +22,19 @@ public class GeocodingRepository : IGeocodingRepository
     public GeocodingRepository(HttpClient httpClient)
     {
         _httpClient = httpClient;
-        _uriBuilder = new(ApplicationOptions.OPENWEATHER_API_URL);
-        _uriBuilder.Path = OPENWEATHER_API_GEOCODING_PATH;
+        _uriBuilder = new(ApplicationOptions.OPENWEATHER_API_URL)
+        {
+            Path = OPENWEATHER_API_GEOCODING_PATH
+        };
     }
 
     public async Task<CityData> GetCityData(string city, string country)
     {
-        if (string.IsNullOrEmpty(city) || string.IsNullOrEmpty(country))
+        if (string.IsNullOrWhiteSpace(city) || string.IsNullOrWhiteSpace(country))
             throw new ArgumentNullException("Missing city or country name");
+
+        city = MakeLocalityNameCorrect(city);
+        country = MakeLocalityNameCorrect(country);
 
         var regionInfo = GetRegionInfoByCountryName(country);
 
@@ -53,7 +58,15 @@ public class GeocodingRepository : IGeocodingRepository
         };
     }
 
-    public IReadOnlyCollection<string> GetCountryNames() 
+    private static string MakeLocalityNameCorrect(string localityName)
+    {
+        var name = localityName.ToLowerInvariant().ToCharArray();
+        name[0] = Char.ToUpperInvariant(name[0]);
+
+        return new string(name);
+    }
+
+    public IReadOnlyCollection<string> GetCountryNames()
     {
         return Countries.Keys;
     }

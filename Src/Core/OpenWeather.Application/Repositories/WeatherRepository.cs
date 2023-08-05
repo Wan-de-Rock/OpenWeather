@@ -24,8 +24,10 @@ public class WeatherRepository : IWeatherRepository
     public WeatherRepository(HttpClient httpClient, IGeocodingRepository geocodingRepository)
     {
         _httpClient = httpClient;
-        _uriBuilder = new(ApplicationOptions.OPENWEATHER_API_URL);
-        _uriBuilder.Path = OPENWEATHER_API_DATA_PATH;
+        _uriBuilder = new(ApplicationOptions.OPENWEATHER_API_URL)
+        {
+            Path = OPENWEATHER_API_DATA_PATH
+        };
         _geocodingRepository = geocodingRepository;
     }
 
@@ -50,7 +52,8 @@ public class WeatherRepository : IWeatherRepository
         response.EnsureSuccessStatusCode();
 
         var json = JsonNode.Parse(response.Content.ReadAsStream())!;
-        var responseDto = JsonSerializer.Deserialize<WeatherResponseDto>(json, ApplicationOptions.jsonSerializerOptions);
+        var responseDto = JsonSerializer.Deserialize<WeatherResponseDto>(json, ApplicationOptions.jsonSerializerOptions)
+            ?? new WeatherResponseDto();
 
         //var json = await response.Content.ReadAsStreamAsync();
         /*

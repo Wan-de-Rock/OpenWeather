@@ -1,0 +1,35 @@
+/*
+tbody {
+    display: flex;
+}
+
+tr {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+td {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    border: 1px solid red;
+}
+*/
+*{
+    margin: 10px;
+    
+    border: 1px solid rgb(0, 157, 255);
+    
+    
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.weather-form-input{
+    width: 200px;
+}
+
+.weather-table-output{
+    width: 200px;
+}

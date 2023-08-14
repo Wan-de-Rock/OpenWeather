@@ -5,8 +5,9 @@ using System.Text.Json;
 const string WebApiUrl = "https://localhost:7002/api/Weather";
 const string RequestUrl = "?city={0}&country={1}";
 
-var client = new HttpClient();
-client.BaseAddress = new Uri(WebApiUrl);
+var client = new HttpClient(){
+    BaseAddress = new Uri(WebApiUrl)
+};
 
 bool isContinue;
 string city, country, continueStr;

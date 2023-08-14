@@ -1,0 +1,39 @@
+<div>
+
+<form method="get" class="weather-form-input">
+    <p><label for="city">City</label></p>
+    <p><input type="text" id="city" name="city" [(ngModel)]="cityName" placeholder="Paris" required pattern="/^\w[A-Z]\w[a-z]+/"></p>
+
+    <p><label for="country">Country</label></p>
+    <p><input type="text" id="country" name="country" [(ngModel)]="countryName" placeholder="France" required></p>
+
+    <button type="submit" (click)="onSubmit()">Show Weather</button>
+
+</form>
+
+<table class="weather-table-output">
+    <tbody>
+        <tr>
+            <td>Temperature:</td>
+            <td>{{ weather.temperature }} °C</td>
+        </tr>
+        <tr>
+            <td>Humidity:</td>
+            <td>{{ weather.humidity}}%</td>
+        </tr>
+        <tr>
+            <td>Wind speed:</td>
+            <td>{{ weather.windSpeed }} m/s</td>
+        </tr>
+        <tr>
+            <td>Cloudiness:</td>
+            <td>{{ weather.cloudiness}}%</td>
+        </tr>
+        <tr>
+            <td>Description:</td>
+            <td>{{ weather.description }}</td>
+        </tr>
+    </tbody>
+</table>
+
+</div>

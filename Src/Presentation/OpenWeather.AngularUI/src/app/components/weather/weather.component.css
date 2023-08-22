@@ -1,27 +1,7 @@
-/*
-tbody {
-    display: flex;
-}
-
-tr {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-}
-
-td {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    border: 1px solid red;
-}
-*/
 *{
-    margin: 10px;
-    
     border: 1px solid rgb(0, 157, 255);
-    
-    
+    font-family: monospace;
+    margin: 10px;
     margin-left: auto;
     margin-right: auto;
 }

@@ -1,5 +1,4 @@
-import { Component, Input } from '@angular/core';
-import { WeatherDto } from 'src/app/data/DTOs/weatherDTO';
+import { Component, Input, OnInit } from '@angular/core';
 import { Weather } from 'src/app/models/weather.model';
 import { WeatherService } from 'src/app/services/weather.service';
 
@@ -8,7 +7,10 @@ import { WeatherService } from 'src/app/services/weather.service';
     templateUrl: './weather.component.html',
     styleUrls: ['./weather.component.css']
 })
-export class WeatherComponent {
+export class WeatherComponent implements OnInit {
+    DEFAULT_CITY_NAME: string = "Paris";
+    DEFAULT_COUNTRY_NAME: string = "France";
+
     cityName: string = "";
     countryName: string = "";
     @Input()
@@ -16,8 +18,17 @@ export class WeatherComponent {
 
     constructor(private weatherService: WeatherService) { }
 
-    async onSubmit() {
-        this.weather = await
-        this.weatherService.getWeather(this.cityName, this.countryName);
+    ngOnInit() {
+        this.getWeather(this.DEFAULT_CITY_NAME, this.DEFAULT_COUNTRY_NAME);
+    }
+
+    onSubmit() {
+        this.getWeather(this.cityName, this.countryName);
+    }
+
+    private getWeather(city: string, country: string){
+        //this.weather = await this.weatherService.getWeather(city, country);
+        this.weatherService.getWeatherFromCustomApi(city, country)
+        .subscribe((response: Weather) => (this.weather = response));
     }
 }

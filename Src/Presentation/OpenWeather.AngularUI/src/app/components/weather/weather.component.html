@@ -2,10 +2,10 @@
 
 <form method="get" class="weather-form-input">
     <p><label for="city">City</label></p>
-    <p><input type="text" id="city" name="city" [(ngModel)]="cityName" placeholder="Paris" required pattern="/^\w[A-Z]\w[a-z]+/"></p>
+    <p><input type="text" id="city" name="city" [(ngModel)]="cityName" placeholder={{DEFAULT_CITY_NAME}} required pattern="/^\w[A-Z]\w[a-z]+/"></p>
 
     <p><label for="country">Country</label></p>
-    <p><input type="text" id="country" name="country" [(ngModel)]="countryName" placeholder="France" required></p>
+    <p><input type="text" id="country" name="country" [(ngModel)]="countryName" placeholder={{DEFAULT_COUNTRY_NAME}} required></p>
 
     <button type="submit" (click)="onSubmit()">Show Weather</button>
 
@@ -15,7 +15,7 @@
     <tbody>
         <tr>
             <td>Temperature:</td>
-            <td>{{ weather.temperature }} °C</td>
+            <td>{{ weather.temperature }}°C</td>
         </tr>
         <tr>
             <td>Humidity:</td>

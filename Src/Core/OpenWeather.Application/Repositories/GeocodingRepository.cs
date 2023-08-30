@@ -33,8 +33,8 @@ public class GeocodingRepository : IGeocodingRepository
         if (string.IsNullOrWhiteSpace(city) || string.IsNullOrWhiteSpace(country))
             throw new ArgumentNullException("Missing city or country name");
 
-        city = MakeLocalityNameCorrect(city);
-        country = MakeLocalityNameCorrect(country);
+        //city = MakeLocalityNameCorrect(city);
+        //country = MakeLocalityNameCorrect(country);
 
         var regionInfo = GetRegionInfoByCountryName(country);
 
@@ -66,7 +66,7 @@ public class GeocodingRepository : IGeocodingRepository
         return new string(name);
     }
 
-    public IReadOnlyCollection<string> GetCountryNames()
+    public IReadOnlyCollection<string> GetCountriesNames()
     {
         return Countries.Keys;
     }

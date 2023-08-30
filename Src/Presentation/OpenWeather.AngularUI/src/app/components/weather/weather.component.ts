@@ -11,6 +11,10 @@ export class WeatherComponent implements OnInit {
     DEFAULT_CITY_NAME: string = "Paris";
     DEFAULT_COUNTRY_NAME: string = "France";
 
+    LOCALITY_NAME_VALIDATION_REGEX: string = "[A-Z]\\w*(\\W*[A-Z]\\w*)*";
+    //LOCALITY_NAME_VALIDATION_REGEX: RegExp = new RegExp("(?:\\W*[A-Z]\\w*)+");
+    //LOCALITY_NAME_VALIDATION_REGEX: RegExp = new RegExp('^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=\\D*\\d)[A-Za-z\\d!$%@#£€*?&]{8,}$');
+
     cityName: string = "";
     countryName: string = "";
     @Input()

@@ -1,21 +1,46 @@
-<div>
+<form method="get" class="weather-form-input" [noValidate]="true">
+    <section class="city-input-section">
+        <label for="city">City</label>
+        <input type="text" id="city" name="city" [(ngModel)]="cityName" #city="ngModel"
+            placeholder={{DEFAULT_CITY_NAME}} required pattern={{LOCALITY_NAME_VALIDATION_REGEX}}>
 
-<form method="get" class="weather-form-input">
-    <p><label for="city">City</label></p>
-    <p><input type="text" id="city" name="city" [(ngModel)]="cityName" placeholder="Paris" required pattern="/^\w[A-Z]\w[a-z]+/"></p>
+        <div *ngIf="city.invalid && (city.dirty || city.touched)" class="alert">
+            <div *ngIf="city.errors?.['required']">
+                City name is required.
+            </div>
+            <div *ngIf="city.errors?.['pattern']">
+                City name is uncorrect.
+            </div>
+        </div>
 
-    <p><label for="country">Country</label></p>
-    <p><input type="text" id="country" name="country" [(ngModel)]="countryName" placeholder="France" required></p>
+    </section>
 
-    <button type="submit" (click)="onSubmit()">Show Weather</button>
+    <section class="country-input-section">
+        <label for="country">Country</label>
+        <input type="text" id="country" name="country" [(ngModel)]="countryName" #country="ngModel"
+            placeholder={{DEFAULT_COUNTRY_NAME}} required pattern={{LOCALITY_NAME_VALIDATION_REGEX}}>
+
+        <div *ngIf="country.invalid && (country.dirty || country.touched)" class="alert">
+            <div *ngIf="country.errors?.['required']">
+                Country name is required.
+            </div>
+            <div *ngIf="country.errors?.['pattern']">
+                Country name is uncorrect.
+            </div>
+        </div>
+
+    </section>
+
+    <button type="submit" (click)="onSubmit()" [disabled]="!city.valid || !country.valid">Show Weather</button>
 
 </form>
+
 
 <table class="weather-table-output">
     <tbody>
         <tr>
             <td>Temperature:</td>
-            <td>{{ weather.temperature }} °C</td>
+            <td>{{ weather.temperature }}°C</td>
         </tr>
         <tr>
             <td>Humidity:</td>
@@ -35,5 +60,3 @@
         </tr>
     </tbody>
 </table>
-
-</div>

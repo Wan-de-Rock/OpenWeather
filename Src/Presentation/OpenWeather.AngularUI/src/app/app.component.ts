@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Weather } from './models/weather.model';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +7,4 @@ import { Weather } from './models/weather.model';
 })
 export class AppComponent {
   title = 'OpenWeather.AngularUI';
-
-  //weather!: Weather;
 }

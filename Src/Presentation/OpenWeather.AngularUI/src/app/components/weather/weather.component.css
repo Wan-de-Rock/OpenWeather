@@ -5,18 +5,19 @@
     margin-right: auto;
 }
 
-input {
-    width: 100px;
-}
 
 .weather-form-input {
     width: 200px;
 }
 
-section{
-    padding-left: 0;
-    padding-right: 0;
+.weather-form-input button{
+    display: flex;
 }
+.weather-form-input input, .weather-form-input select{
+    display: flex;
+    width: max-content;
+}
+
 /*
 
 input:invalid {

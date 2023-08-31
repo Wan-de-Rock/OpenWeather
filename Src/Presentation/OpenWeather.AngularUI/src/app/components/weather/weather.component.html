@@ -17,15 +17,16 @@
 
     <section class="country-input-section">
         <label for="country">Country</label>
-        <input type="text" id="country" name="country" [(ngModel)]="countryName" #country="ngModel"
-            placeholder={{DEFAULT_COUNTRY_NAME}} required pattern={{LOCALITY_NAME_VALIDATION_REGEX}}>
-
+        <select [(ngModel)]="countryName" (change)="changeCountry($event)" name="country" #country="ngModel" required minlength="2">
+            <option label="--select a country--" selected disabled></option>
+            <!--
+                <option value="0" selected disabled>--select a country--</option>
+            -->         
+            <option *ngFor="let country of countriesNames" [value]="country">{{country}}</option>
+        </select>
         <div *ngIf="country.invalid && (country.dirty || country.touched)" class="alert">
-            <div *ngIf="country.errors?.['required']">
+            <div *ngIf="city.errors?.['required']">
                 Country name is required.
-            </div>
-            <div *ngIf="country.errors?.['pattern']">
-                Country name is uncorrect.
             </div>
         </div>
 

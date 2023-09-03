@@ -1,25 +1,47 @@
 * {
-    /*border: 1px solid rgb(0, 157, 255);*/
-    font-family: monospace;
-    margin-left: auto;
-    margin-right: auto;
+    /*
+    border: 1px solid rgb(0, 157, 255);
+    */
+    font-family: monospace;   
+    margin: 0 auto;
+    box-sizing: border-box;
 }
 
-
-.weather-form-input {
-    width: 200px;
+form {
+    width: 170px;
+    margin-bottom: 20px;
 }
 
-.weather-form-input button{
-    display: flex;
+section {
+    height: 55px;
 }
-.weather-form-input input, .weather-form-input select{
-    display: flex;
-    width: max-content;
-}
-
 /*
+section + section {
+    margin-top: 1em;
+}
+*/
+label {
+    width: 90px;
+    display: inline-block;
+    text-align: left;
+}
 
+input, select{
+    width: 170px;
+    height: 20px;
+}
+
+button {
+    width: fit-content;
+    margin-left: 2.5em;
+}
+
+.error {
+    padding: 0;
+    font-size: 80%;
+    color: brown;
+}
+/*
 input:invalid {
     border-color: #900;
     background-color: #fdd;
@@ -27,24 +49,5 @@ input:invalid {
 
 input:focus:invalid {
     outline: none;
-}
-*/
-
-/* This is the style of our error messages */
-/*
-.error {
-    width: 100%;
-    padding: 0;
-
-    font-size: 80%;
-    color: white;
-    background-color: #900;
-    border-radius: 0 0 5px 5px;
-
-    box-sizing: border-box;
-}
-
-.error.active {
-    padding: 0.3em;
 }
 */

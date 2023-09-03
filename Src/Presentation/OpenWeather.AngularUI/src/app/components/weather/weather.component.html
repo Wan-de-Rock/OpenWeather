@@ -4,7 +4,7 @@
         <input type="text" id="city" name="city" [(ngModel)]="cityName" #city="ngModel"
             placeholder={{DEFAULT_CITY_NAME}} required pattern={{LOCALITY_NAME_VALIDATION_REGEX}}>
 
-        <div *ngIf="city.invalid && (city.dirty || city.touched)" class="alert">
+        <div *ngIf="city.invalid && (city.dirty || city.touched)" class="error">
             <div *ngIf="city.errors?.['required']">
                 City name is required.
             </div>
@@ -18,13 +18,10 @@
     <section class="country-input-section">
         <label for="country">Country</label>
         <select [(ngModel)]="countryName" (change)="changeCountry($event)" name="country" #country="ngModel" required minlength="2">
-            <option label="--select a country--" selected disabled></option>
-            <!--
-                <option value="0" selected disabled>--select a country--</option>
-            -->         
+            <option label="--select a country--" selected disabled></option>     
             <option *ngFor="let country of countriesNames" [value]="country">{{country}}</option>
         </select>
-        <div *ngIf="country.invalid && (country.dirty || country.touched)" class="alert">
+        <div *ngIf="country.invalid && (country.dirty || country.touched)" class="error">
             <div *ngIf="city.errors?.['required']">
                 Country name is required.
             </div>

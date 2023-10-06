@@ -10,14 +10,19 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddOpenWeatherDependencies();
+
 builder.Services.AddCors(
-    options => options.AddPolicy(name: "WeatherOriginsPolicy",
+    options => options.AddPolicy(name: "ApiOriginsPolicy",
         policy =>
         {
-            policy.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
+            policy
+                .AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod();
         }
     )
 );
+
 
 var app = builder.Build();
 
@@ -28,7 +33,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors("WeatherOriginsPolicy");
+app.UseCors("ApiOriginsPolicy");
 
 app.UseHttpsRedirection();
 

@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  openweather_api:
+    image: openweather_api
+    build:
+      context: .
+      dockerfile: Src/Infrastructure/OpenWeather.WebAPI/Dockerfile
+    ports:
+    - "5020:80"
+    - "7020:443"
+    environment:
+      ASPNETCORE_URLS: "https://+;http://+"
+      ASPNETCORE_HTTPS_PORT: "7020"
+      ASPNETCORE_ENVIRONMENT: "Development"
+      DOTNET_SYSTEM_GLOBALIZATION_INVARIANT: "false"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro

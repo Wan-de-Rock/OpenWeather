@@ -6,7 +6,7 @@ import { Observable } from "rxjs";
     providedIn: 'root'
 })
 export class GeocodingService {
-    private api_url = "https://localhost:7002";
+    private api_url = "https://localhost:7020";
 
     constructor(private http: HttpClient) { }
 

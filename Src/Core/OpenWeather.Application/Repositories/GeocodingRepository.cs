@@ -1,12 +1,12 @@
 ﻿namespace OpenWeather.Application.Repositories;
 
+using System;
 using System.Globalization;
 using System.Text.Json.Nodes;
 using System.Text.Json;
 using OpenWeather.Domain.Interfaces;
 using OpenWeather.Domain.Entities;
 using OpenWeather.Application.Exceptions;
-using System;
 using OpenWeather.Application.DTOs;
 
 public class GeocodingRepository : IGeocodingRepository
@@ -16,8 +16,7 @@ public class GeocodingRepository : IGeocodingRepository
 
     private readonly HttpClient _httpClient;
     private readonly UriBuilder _uriBuilder;
-
-    private readonly static Dictionary<string, RegionInfo> Countries = SetCountries();
+    private readonly static Dictionary<string, RegionInfo> _countries = SetCountries();
 
     public GeocodingRepository(HttpClient httpClient)
     {
@@ -32,9 +31,6 @@ public class GeocodingRepository : IGeocodingRepository
     {
         if (string.IsNullOrWhiteSpace(city) || string.IsNullOrWhiteSpace(country))
             throw new ArgumentNullException("Missing city or country name");
-
-        //city = MakeLocalityNameCorrect(city);
-        //country = MakeLocalityNameCorrect(country);
 
         var regionInfo = GetRegionInfoByCountryName(country);
 
@@ -58,17 +54,9 @@ public class GeocodingRepository : IGeocodingRepository
         };
     }
 
-    private static string MakeLocalityNameCorrect(string localityName)
-    {
-        var name = localityName.ToLowerInvariant().ToCharArray();
-        name[0] = Char.ToUpperInvariant(name[0]);
-
-        return new string(name);
-    }
-
     public IReadOnlyCollection<string> GetCountriesNames()
     {
-        return Countries.Keys;
+        return _countries.Keys;
     }
 
     private static Dictionary<string, RegionInfo> SetCountries()
@@ -77,7 +65,7 @@ public class GeocodingRepository : IGeocodingRepository
 
         foreach (CultureInfo ci in CultureInfo.GetCultures(CultureTypes.SpecificCultures))
         {
-            var ri = new RegionInfo(ci.LCID);
+            var ri = new RegionInfo(ci.Name);
             data.TryAdd(ri.EnglishName, ri);
         }
 
@@ -86,7 +74,7 @@ public class GeocodingRepository : IGeocodingRepository
 
     private static RegionInfo GetRegionInfoByCountryName(string countryName)
     {
-        if (!Countries.TryGetValue(countryName, out var regionInfo))
+        if (!_countries.TryGetValue(countryName, out var regionInfo))
             throw new CountryNotFoundException();
 
         return regionInfo;

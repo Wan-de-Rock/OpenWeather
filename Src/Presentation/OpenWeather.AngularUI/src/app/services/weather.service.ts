@@ -9,7 +9,7 @@ import { Observable } from "rxjs";
     providedIn: 'root'
 })
 export class WeatherService {
-    private api_url = "https://localhost:7002";
+    private api_url = "https://localhost:7020";
     private api_key = "e4a87cdd99b53079747a485abb15888b";
 
     constructor(private http: HttpClient) { }

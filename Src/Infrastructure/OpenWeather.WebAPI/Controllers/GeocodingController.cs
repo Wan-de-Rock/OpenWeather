@@ -1,9 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using OpenWeather.Application.Exceptions;
-using OpenWeather.Domain.Entities;
 using OpenWeather.Domain.Interfaces;
 using System.Collections.Immutable;
-using static System.Net.WebRequestMethods;
 
 namespace OpenWeather.WebAPI.Controllers
 {
@@ -19,7 +16,7 @@ namespace OpenWeather.WebAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyCollection<string>>> GetAllCountriesNamesSorted()
+        public ActionResult<IReadOnlyCollection<string>> GetAllCountriesNamesSorted()
         {
             var countriesNames = _geocodingRepository.GetCountriesNames().ToImmutableSortedSet();
             return Ok(countriesNames);

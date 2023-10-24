@@ -36,12 +36,10 @@ public class GeocodingRepository : IGeocodingRepository
 
         _uriBuilder.Query = string.Format(OPENWEATHER_API_GEOCODING_QUERY, city, regionInfo.TwoLetterISORegionName);
 
-        // surround try/catch
         var response = await _httpClient.GetAsync(_uriBuilder.Uri.ToString()); // Result [] - if doesn't exists
         response.EnsureSuccessStatusCode();
 
-        var json = JsonNode.Parse(response.Content.ReadAsStream());
-        //var json = await response.Content.ReadAsStreamAsync();
+        var json = JsonNode.Parse(response.Content.ReadAsStreamAsync().Result);
         if (json is null || json.AsArray().Count == 0)
             throw new CityNotFoundException();
         var coords = JsonSerializer.Deserialize<CoordinatesDto>(json[0], ApplicationOptions.jsonSerializerOptions);

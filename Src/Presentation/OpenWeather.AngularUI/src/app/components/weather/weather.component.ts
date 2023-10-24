@@ -41,7 +41,7 @@ export class WeatherComponent implements OnInit {
 
     private getWeather(city: string, country: string){
         //this.weather = await this.weatherService.getWeather(city, country);
-        this.weatherService.getWeatherFromCustomApi(city, country)
+        this.weatherService.getWeather(city, country)
         .subscribe((response: Weather) => (this.weather = response));
     }
 

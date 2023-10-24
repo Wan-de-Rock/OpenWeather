@@ -1,18 +1,16 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
+import { environment } from "environments/environment.prod";
 
 @Injectable({
     providedIn: 'root'
 })
 export class GeocodingService {
-    private api_url = "https://localhost:7020";
 
     constructor(private http: HttpClient) { }
 
     getCountriesNamesSorted(): Observable<string[]> {
-        let url_weather = `${this.api_url}/api/Geocoding`;
-
-        return this.http.get<string[]>(url_weather);
+        return this.http.get<string[]>(`${environment.OPENWEATHER_API_BASE_URL}/Geocoding`);
     }
 }

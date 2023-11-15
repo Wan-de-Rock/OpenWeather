@@ -1,15 +1,16 @@
 using OpenWeather.Application;
+using OpenWeather.WebAPI.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddOpenWeatherDependencies();
+builder.Services.AddTransient<ExceptionHandlerMiddleware>();
 
 builder.Services.AddCors(
     options => options.AddPolicy(name: "ApiOriginsPolicy",
@@ -34,6 +35,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseExceptionHandlerMiddleware();
 
 app.UseCors("ApiOriginsPolicy");
 

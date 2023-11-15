@@ -55,15 +55,6 @@ public class WeatherRepository : IWeatherRepository
         var responseDto = JsonSerializer.Deserialize<WeatherResponseDto>(json, ApplicationOptions.jsonSerializerOptions)
             ?? new WeatherResponseDto();
 
-        //var json = await response.Content.ReadAsStreamAsync();
-        /*
-        double temp = (double)json["main"]!["temp"]!;
-        int humidity = (int)json["main"]!["humidity"]!;
-        double windSpeed = (double)json["wind"]!["speed"]!;
-        int cloudiness = (int)json["clouds"]!["all"]!;
-        string description = (string)json["weather"]![0]!["description"]!;
-         */
-
         return new Weather
         {
             Temperature = responseDto.Main.Temp,

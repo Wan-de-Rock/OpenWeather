@@ -1,60 +1,63 @@
-<form method="get" class="weather-form-input" [noValidate]="true">
-    <section class="city-input-section">
-        <label for="city">City</label>
-        <input type="text" id="city" name="city" [(ngModel)]="cityName" #city="ngModel"
-            placeholder={{DEFAULT_CITY_NAME}} required pattern={{LOCALITY_NAME_VALIDATION_REGEX}}>
 
-        <div *ngIf="city.invalid && (city.dirty || city.touched)" class="error">
-            <div *ngIf="city.errors?.['required']">
-                City name is required.
+<div class="weather-component">
+    <form method="get" class="weather-form-input" [noValidate]="true">
+        <section class="city-input-section">
+            <label for="city">City</label>
+            <input type="text" id="city" name="city" [(ngModel)]="cityName" #city="ngModel"
+                placeholder={{DEFAULT_CITY_NAME}} required pattern={{LOCALITY_NAME_VALIDATION_REGEX}}>
+    
+            <div *ngIf="city.invalid && (city.dirty || city.touched)" class="error">
+                <div *ngIf="city.errors?.['required']">
+                    City name is required.
+                </div>
+                <div *ngIf="city.errors?.['pattern']">
+                    City name is uncorrect.
+                </div>
             </div>
-            <div *ngIf="city.errors?.['pattern']">
-                City name is uncorrect.
+    
+        </section>
+    
+        <section class="country-input-section">
+            <label for="country">Country</label>
+            <select [(ngModel)]="countryName" (change)="changeCountry($event)" name="country" #country="ngModel" required minlength="2">
+                <option label="--select a country--" selected disabled></option>     
+                <option *ngFor="let country of countriesNames" [value]="country">{{country}}</option>
+            </select>
+            <div *ngIf="country.invalid && (country.dirty || country.touched)" class="error">
+                <div *ngIf="city.errors?.['required']">
+                    Country name is required.
+                </div>
             </div>
-        </div>
-
-    </section>
-
-    <section class="country-input-section">
-        <label for="country">Country</label>
-        <select [(ngModel)]="countryName" (change)="changeCountry($event)" name="country" #country="ngModel" required minlength="2">
-            <option label="--select a country--" selected disabled></option>     
-            <option *ngFor="let country of countriesNames" [value]="country">{{country}}</option>
-        </select>
-        <div *ngIf="country.invalid && (country.dirty || country.touched)" class="error">
-            <div *ngIf="city.errors?.['required']">
-                Country name is required.
-            </div>
-        </div>
-
-    </section>
-
-    <button type="submit" (click)="onSubmit()" [disabled]="!city.valid || !country.valid">Show Weather</button>
-
-</form>
-
-
-<table class="weather-table-output">
-    <tbody>
-        <tr>
-            <td>Temperature:</td>
-            <td>{{ weather.temperature }}°C</td>
-        </tr>
-        <tr>
-            <td>Humidity:</td>
-            <td>{{ weather.humidity}}%</td>
-        </tr>
-        <tr>
-            <td>Wind speed:</td>
-            <td>{{ weather.windSpeed }} m/s</td>
-        </tr>
-        <tr>
-            <td>Cloudiness:</td>
-            <td>{{ weather.cloudiness}}%</td>
-        </tr>
-        <tr>
-            <td>Description:</td>
-            <td>{{ weather.description }}</td>
-        </tr>
-    </tbody>
-</table>
+    
+        </section>
+    
+        <button type="submit" (click)="onSubmit()" [disabled]="!city.valid || !country.valid">Show Weather</button>
+    
+    </form>
+    
+    
+    <table class="weather-table-output">
+        <tbody>
+            <tr>
+                <td>Temperature:</td>
+                <td>{{ weather.temperature }}°C</td>
+            </tr>
+            <tr>
+                <td>Humidity:</td>
+                <td>{{ weather.humidity}}%</td>
+            </tr>
+            <tr>
+                <td>Wind speed:</td>
+                <td>{{ weather.windSpeed }} m/s</td>
+            </tr>
+            <tr>
+                <td>Cloudiness:</td>
+                <td>{{ weather.cloudiness}}%</td>
+            </tr>
+            <tr>
+                <td>Description:</td>
+                <td>{{ weather.description }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -15,7 +15,7 @@ public class GeocodingRepositoryTests
 
 
     [Fact]
-    public void GetCityData_ReturnCityData_WhenRequestIsValid()
+    public async Task GetCityData_ReturnCityData_WhenRequestIsValid()
     {
         //Arrange
         var city = "Moskow";
@@ -28,7 +28,7 @@ public class GeocodingRepositoryTests
         };
 
         //Act
-        var actualResult = _geocodingRepository.GetCityData(city, country).Result;
+        var actualResult = await _geocodingRepository.GetCityData(city, country);
 
         //Assert
         Assert.Equivalent(correctResult, actualResult);
